@@ -1,2 +1,2 @@
 
-Messing with Spring Shell
+Picking up Spring Shell
