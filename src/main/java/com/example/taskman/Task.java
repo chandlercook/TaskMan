@@ -1,6 +1,6 @@
 package com.example.taskman;
 
-import com.example.taskman.repository.TaskPriority;
+import com.example.taskman.enums.TaskPriority;
 
 public class Task {
 
@@ -19,17 +19,4 @@ public class Task {
     public TaskPriority getPriority() {
         return taskPriority;
     }
-
-
-
-
-//    @Override
-//    public String toString() {
-//        return switch (taskPriority) {
-//            case "!!!" -> "!!!\n" + "- " + description;
-//            case "!!" -> "!!\n" + "- " + description;
-//            case "!" -> "!\n" + "- " + description;
-//            default -> "empty list";
-//        };
-//    }
 }

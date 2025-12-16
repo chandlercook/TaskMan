@@ -1,4 +1,4 @@
-package com.example.taskman.repository;
+package com.example.taskman.enums;
 
 
 public enum TaskPriority {

@@ -1,40 +1,41 @@
 package com.example.taskman;
 
-import com.example.taskman.repository.TaskPriority;
+import com.example.taskman.enums.TaskPriority;
 import com.example.taskman.repository.TaskRepository;
-import jakarta.annotation.Priority;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+// TODO
+// fix delete function
+// incorporate SQLite later on
+
+
 @ShellComponent
-public class Commands {
+public class TaskCommands {
 
     private final TaskRepository taskRepository;
 
-    public Commands(TaskRepository taskRepository){
+    public TaskCommands(TaskRepository taskRepository){
         this.taskRepository = taskRepository;
     }
 
-    @ShellMethod(key = "hello", value = "Computer gives its salutations to you.")
+    @ShellMethod(key = "hello", value = "Computer gives its salutations to you | sayHello [name]")
     String sayHello(@ShellOption(defaultValue = "ok fine, human") String user){
         return "Hello " + user;
     }
 
-    @ShellMethod(key = "newTask", value = "Add new task")
+    @ShellMethod(key = "newTask", value = "Add new task | newTask [description]")
     void addTask() {
         taskRepository.addTask();
     }
 
-    @ShellMethod(value = "List all tasks")
+    @ShellMethod(key = "listTasks",value = "List all tasks")
     public String listTasks() {
 
         Map<TaskPriority, List<Task>> tasksByPriority =
@@ -45,7 +46,15 @@ public class Commands {
                                 Collectors.toList()
                         ));
 
-        return taskRepository.formatTasksByPriority(tasksByPriority);
+        if (taskRepository.getAll().isEmpty()) { return "The list is empty."; }
+        else {
+            return taskRepository.formatTasksByPriority(tasksByPriority);
+        }
+    }
+
+    @ShellMethod(key = "deleteTask", value = "Remove a task from your list | deleteTask [nameOfTask]")
+    public void deleteTask(@ShellOption String taskToDelete) {
+        taskRepository.deleteTask(taskToDelete);
     }
 
 }

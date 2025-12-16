@@ -1,7 +1,7 @@
 package com.example.taskman.repository;
 
 import com.example.taskman.Task;
-import jakarta.annotation.Priority;
+import com.example.taskman.enums.TaskPriority;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -50,6 +50,36 @@ public class TaskRepository {
         });
 
         return sb.toString();
+    }
+
+    private String normalize(String s) {
+        return s.trim().replaceAll("\\s+", " ").toLowerCase();
+    }
+
+
+    public void deleteTask(String taskToDelete) {
+
+        Iterator<Task> iterator = tasks.iterator(); // iterator's start position sits behind index 0 of the list
+        boolean found = false;
+
+        String target = normalize(taskToDelete);
+
+        while (iterator.hasNext()) { // additionally checks if the list is empty ^^
+            Task task = iterator.next();
+            String desc = normalize(task.getDescription());
+
+            System.out.println("DEBUG: [" + task.getDescription() + "]");
+
+            if (desc.equals(target)) {
+                iterator.remove();
+                found = true;
+                System.out.println(taskToDelete + " has been removed.");
+                break;
+            }
+        }
+        if (!found){
+            System.out.println("Task not in list.");
+        }
     }
 
 }
