@@ -56,24 +56,24 @@ public class TaskRepository {
         return s.trim().replaceAll("\\s+", " ").toLowerCase();
     }
 
+    public void deleteTask() {
 
-    public void deleteTask(String taskToDelete) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter task to delete:");
+        String taskToDelete = scanner.nextLine();
+
 
         Iterator<Task> iterator = tasks.iterator(); // iterator's start position sits behind index 0 of the list
         boolean found = false;
-
-//        String target = normalize(taskToDelete);
 
         while (iterator.hasNext()) { // additionally checks if the list is empty ^^
             Task task = iterator.next();
             String taskDescription = task.getDescription();
 
-            System.out.println("DEBUG: [" + task.getDescription() + "]");
-
             if (taskDescription.equals(taskToDelete)) {
                 iterator.remove();
                 found = true;
-                System.out.println(taskToDelete + " has been removed.");
+                System.out.println('"' + taskToDelete + '"' + " has been removed.");
                 break;
             }
         }

@@ -52,9 +52,9 @@ public class TaskCommands {
         }
     }
 
-    @ShellMethod(key = "deleteTask", value = "Remove a task from your list | deleteTask [nameOfTask]")
-    public void deleteTask(@ShellOption String taskToDelete) {
-        taskRepository.deleteTask(taskToDelete);
+    @ShellMethod(key = "deleteTask", value = "Remove a task from your list | deleteTask [description]")
+    public void deleteTask() {
+        taskRepository.deleteTask();
     }
 
 }
