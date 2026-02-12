@@ -25,7 +25,7 @@ public class TaskRepository {
 
         try {
             TaskPriority taskPriority = TaskPriority.fromInput(priorityMark);
-            tasks.add(new Task(taskName, taskPriority));
+            tasks.add(new Task(normalize(taskName), taskPriority));
             System.out.println("Added");
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid priority. Please use !!!, !!, or !");
@@ -62,15 +62,15 @@ public class TaskRepository {
         Iterator<Task> iterator = tasks.iterator(); // iterator's start position sits behind index 0 of the list
         boolean found = false;
 
-        String target = normalize(taskToDelete);
+//        String target = normalize(taskToDelete);
 
         while (iterator.hasNext()) { // additionally checks if the list is empty ^^
             Task task = iterator.next();
-            String desc = normalize(task.getDescription());
+            String taskDescription = task.getDescription();
 
             System.out.println("DEBUG: [" + task.getDescription() + "]");
 
-            if (desc.equals(target)) {
+            if (taskDescription.equals(taskToDelete)) {
                 iterator.remove();
                 found = true;
                 System.out.println(taskToDelete + " has been removed.");
